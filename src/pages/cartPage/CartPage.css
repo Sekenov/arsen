@@ -1,0 +1,115 @@
+.cart-page {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    color: #333;
+  }
+  
+  .cart-page__title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .cart-page__content {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .cart-page__items {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+  }
+  
+  .cart-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    border-radius: 8px;
+  }
+  
+  .cart-item__checkbox {
+    margin-right: 10px;
+  }
+  
+  .cart-item__image-wrapper {
+    flex: 0 0 100px;
+    margin-right: 20px;
+  }
+  
+  .cart-item__image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+  
+  .cart-item__details {
+    flex: 1;
+  }
+  
+  .cart-item__name {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .cart-item__price {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  
+  .cart-item__price--old {
+    text-decoration: line-through;
+    color: #888;
+    margin-right: 10px;
+  }
+  
+  .cart-item__quantity {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .cart-item__remove {
+    padding: 5px 10px;
+    background-color: #ff4d4f;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .cart-page__summary {
+    flex: 1;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+  }
+  
+  .cart-page__total {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 15px 0;
+  }
+  
+  .cart-page__checkout-button {
+    padding: 10px 20px;
+    background-color: #ff6600;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  

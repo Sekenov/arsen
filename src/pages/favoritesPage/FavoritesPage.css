@@ -1,0 +1,104 @@
+.favorites-page {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  color: #333;
+}
+
+.favorites-page__title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #4b0082;
+  margin-bottom: 20px;
+}
+
+.favorites-page__empty {
+  font-size: 18px;
+  color: #777;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.favorites-page__products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.favorites-product-card {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s;
+  cursor: pointer;
+}
+
+.favorites-product-card:hover {
+  transform: translateY(-5px);
+}
+
+.favorites-product-card__image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.favorites-product-card__name {
+  font-size: 16px;
+  color: #333;
+  margin: 10px 0;
+}
+
+.favorites-product-card__price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #4b0082;
+  margin: 5px 0;
+}
+
+.favorites-product-card__price--old {
+  font-size: 14px;
+  color: #999;
+  text-decoration: line-through;
+  margin-right: 8px;
+}
+
+.favorites-product-card__status {
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.favorites-product-card__status.in-stock {
+  color: green;
+}
+
+.favorites-product-card__status.out-of-stock {
+  color: red;
+}
+
+/* Add to Cart Button */
+.favorites-product-card__button {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 8px 12px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #4b0082;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.favorites-product-card__button:hover {
+  background-color: #3a0066;
+}
+
+.favorites-product-card__button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
