@@ -6,7 +6,7 @@ import "./CartPage.css";
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [removingProductId, setRemovingProductId] = useState(null);
+  const [updatingProductId, setUpdatingProductId] = useState(null);
   const navigate = useNavigate();
 
   const fetchCartItems = async () => {
@@ -44,6 +44,48 @@ const CartPage = () => {
     }
   };
 
+  const updateCartItemQuantity = async (productId, newQuantity) => {
+    const savedUser = localStorage.getItem("user");
+    const user = savedUser ? JSON.parse(savedUser) : null;
+    const token = user?.token;
+
+    if (!token) {
+      console.error("Пользователь не авторизован");
+      return;
+    }
+
+    setUpdatingProductId(productId);
+    try {
+      const response = await fetch(
+        "https://ittalker-online-store-8b609d501d03.herokuapp.com/api/v1/cart/update",
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ productId, quantity: newQuantity }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Ошибка при обновлении количества товара");
+      }
+
+      setCartItems((prevItems) =>
+        prevItems.map((item) =>
+          item.productId === productId
+            ? { ...item, quantity: newQuantity }
+            : item
+        )
+      );
+    } catch (error) {
+      console.error("Ошибка при обновлении товара:", error);
+    } finally {
+      setUpdatingProductId(null);
+    }
+  };
+
   const handleRemoveFromCart = async (productId) => {
     const savedUser = localStorage.getItem("user");
     const user = savedUser ? JSON.parse(savedUser) : null;
@@ -54,7 +96,7 @@ const CartPage = () => {
       return;
     }
 
-    setRemovingProductId(productId);
+    setUpdatingProductId(productId);
     try {
       const response = await fetch(
         "https://ittalker-online-store-8b609d501d03.herokuapp.com/api/v1/cart/remove",
@@ -72,12 +114,13 @@ const CartPage = () => {
         throw new Error("Ошибка при удалении товара из корзины");
       }
 
-      console.log(`Товар с ID ${productId} успешно удален из корзины`);
-      setCartItems((prevItems) => prevItems.filter((item) => item.productId !== productId));
+      setCartItems((prevItems) =>
+        prevItems.filter((item) => item.productId !== productId)
+      );
     } catch (error) {
       console.error("Ошибка при удалении товара:", error);
     } finally {
-      setRemovingProductId(null);
+      setUpdatingProductId(null);
     }
   };
 
@@ -120,22 +163,61 @@ const CartPage = () => {
                     className="cart-item__image"
                   />
                 </div>
-                <div className="cart-item__details" onClick={() => handleProductClick(item.productId)}>
-                  <h3 className="cart-item__name">{item.productName}</h3>
+                <div className="cart-item__details">
+                  <h3
+                    className="cart-item__name"
+                    onClick={() => handleProductClick(item.productId)}
+                  >
+                    {item.productName}
+                  </h3>
                   <p className="cart-item__price">
                     {item.oldPrice && (
-                      <span className="cart-item__price--old">{item.oldPrice} ₽</span>
+                      <span className="cart-item__price--old">
+                        {item.oldPrice} ₽
+                      </span>
                     )}
                     {item.newPrice ? `${item.newPrice} ₽` : "Цена не указана"}
                   </p>
-                  <p className="cart-item__quantity">Количество: {item.quantity}</p>
+                  <div className="cart-item__quantity-controls">
+                    {updatingProductId === item.productId ? (
+                      <Loader />
+                    ) : (
+                      <>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation(); // Останавливаем всплытие события
+                            updateCartItemQuantity(
+                              item.productId,
+                              item.quantity - 1 > 0 ? item.quantity - 1 : 1
+                            );
+                          }}
+                        >
+                          -
+                        </button>
+                        <span>{item.quantity}</span>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation(); // Останавливаем всплытие события
+                            updateCartItemQuantity(
+                              item.productId,
+                              item.quantity + 1
+                            );
+                          }}
+                        >
+                          +
+                        </button>
+                      </>
+                    )}
+                  </div>
                 </div>
                 <button
                   className="cart-item__remove"
-                  onClick={() => handleRemoveFromCart(item.productId)}
-                  disabled={removingProductId === item.productId}
+                  onClick={(e) => {
+                    e.stopPropagation(); // Останавливаем всплытие события
+                    handleRemoveFromCart(item.productId);
+                  }}
                 >
-                  {removingProductId === item.productId ? "Удаление..." : "Удалить"}
+                  Удалить
                 </button>
               </div>
             ))

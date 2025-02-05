@@ -112,4 +112,25 @@
     border-radius: 5px;
     cursor: pointer;
   }
+  .cart-item__quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .cart-item__quantity-controls button {
+    padding: 5px 10px;
+    background-color: #ff6600;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+  .cart-item__quantity-controls button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
   
