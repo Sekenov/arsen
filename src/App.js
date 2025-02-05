@@ -19,7 +19,7 @@ function App() {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          "https://ittalker-online-store-8b609d501d03.herokuapp.com/api/v1/catalog/products",
+          "https://ittalker-online-store-8b609d501d03.herokuapp.com/api/v1/catalog/products/search",
           {
             method: "POST",
             headers: {

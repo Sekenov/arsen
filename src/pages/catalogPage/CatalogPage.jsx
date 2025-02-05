@@ -28,7 +28,7 @@ const CatalogPage = () => {
         setFilters(filtersData.filters);
 
         const productsResponse = await fetch(
-          "https://ittalker-online-store-8b609d501d03.herokuapp.com/api/v1/catalog/products",
+          "https://ittalker-online-store-8b609d501d03.herokuapp.com/api/v1/catalog/products/search",
           {
             method: "POST",
             headers: {
@@ -37,7 +37,7 @@ const CatalogPage = () => {
             body: JSON.stringify({ category_id: id, page }),
           }
         );
-
+        
         const productsData = await productsResponse.json();
         setProducts(productsData.products);
         setPageSize(productsData.page_size);
